@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Transform GFX;
+    float flipX;
+    
     void Start()
     {
-        
+        GFX = GetComponentInChildren<SpriteRenderer>().transform;
+        flipX = GFX.LocalScale.x;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        float horz = System.Math.Sign(Input.GetAxisRaw("Horizontal"));
+        if (Mathf.Abs(horz) > 0) 
+        {
+            GFX.LocalScale = new Vector2(flipX * horz, GFX.LocalScale.y);
+        }
     }
 }
