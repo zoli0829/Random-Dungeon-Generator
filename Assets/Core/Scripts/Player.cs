@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         GFX = GetComponentInChildren<SpriteRenderer>().transform;
-        flipX = GFX.LocalScale.x;
+        flipX = GFX.localScale.x;
     }
     
     void Update()
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         float horz = System.Math.Sign(Input.GetAxisRaw("Horizontal"));
         if (Mathf.Abs(horz) > 0) 
         {
-            GFX.LocalScale = new Vector2(flipX * horz, GFX.LocalScale.y);
+            GFX.localScale = new Vector2(flipX * horz, GFX.localScale.y);
         }
     }
 }
