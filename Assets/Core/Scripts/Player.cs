@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        Move();
+    }
+
+    void Move()
+    {
         float horz = System.Math.Sign(Input.GetAxisRaw("Horizontal"));
         float vert = System.Math.Sign(Input.GetAxisRaw("Vertical"));
         if (Mathf.Abs(horz) > 0 || Mathf.Abs(vert) > 0)
