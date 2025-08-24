@@ -250,7 +250,8 @@ MonoBehaviour:
   floorPrefab: {fileID: 2572432035584226164, guid: b63a799264c231f178210596e66e972f, type: 3}
   wallPrefab: {fileID: 5745969124114797240, guid: 1c1d7338b5b8eefa888e3b13c4677356, type: 3}
   tileSpawnerPrefab: {fileID: 5573299411751030617, guid: e5dd742c2a716835da2ee5fb49292f76, type: 3}
-  totalFloorCount: 500
+  exitPrefab: {fileID: 4308859373404870858, guid: 37d291bfb47c3e058a602cc2a20ef801, type: 3}
+  totalFloorCount: 50
   minX: 0
   maxX: 0
   minY: 0
