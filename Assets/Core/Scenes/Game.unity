@@ -247,11 +247,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c14451e1fb1b6e5be5fb2c51f92fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomItems:
+  - {fileID: 4006294637907618314, guid: 30f92025137b03cecabb6e55552d6a38, type: 3}
+  - {fileID: 8719671297175881724, guid: 0356d8550b007f8d4a404836fafd0904, type: 3}
+  - {fileID: 7841961669786983918, guid: 6cfbc1ef0a353f88ba5b9c56d3d7f5fa, type: 3}
+  - {fileID: 8157364335066508706, guid: 61653172fc0194351b02bb8dc497fb68, type: 3}
+  - {fileID: 3414569251101717177, guid: f6a74da800ee913ccb3f5a169b721b39, type: 3}
   floorPrefab: {fileID: 2572432035584226164, guid: b63a799264c231f178210596e66e972f, type: 3}
   wallPrefab: {fileID: 5745969124114797240, guid: 1c1d7338b5b8eefa888e3b13c4677356, type: 3}
   tileSpawnerPrefab: {fileID: 5573299411751030617, guid: e5dd742c2a716835da2ee5fb49292f76, type: 3}
   exitPrefab: {fileID: 4308859373404870858, guid: 37d291bfb47c3e058a602cc2a20ef801, type: 3}
-  totalFloorCount: 50
+  totalFloorCount: 490
+  itemSpawnPercent: 10
   minX: 0
   maxX: 0
   minY: 0

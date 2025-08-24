@@ -7,15 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class DungeonManager : MonoBehaviour
 {
+    public GameObject[] randomItems;
     public GameObject floorPrefab, wallPrefab, tileSpawnerPrefab, exitPrefab;
-    public int totalFloorCount;
+    [Range(50, 5000)] public int totalFloorCount;
+    [Range(0, 100)] public int itemSpawnPercent;
     
     [HideInInspector] public float minX, maxX, minY, maxY;
     
     List<Vector3> floorList = new List<Vector3>();
+    LayerMask floorMask;
+    LayerMask wallMask;
 
     void Start()
     {
+        floorMask = LayerMask.GetMask("Floor");
+        wallMask = LayerMask.GetMask("Wall");
         RandomWalker();
     }
 
@@ -83,6 +89,46 @@ public class DungeonManager : MonoBehaviour
         }
 
         ExitDoorway();
+        Vector2 hitSize = Vector2.one * 0.8f;
+
+        for (int x = (int)minX - 2; x <= (int)maxX + 2; x++)
+        {
+            for (int y = (int)minY - 2; y <= (int)maxY + 2; y++)
+            {
+                Collider2D hitFloor = Physics2D.OverlapBox(new Vector2(x, y), hitSize, 0, floorMask);
+                if (hitFloor)
+                {
+                    // so its not the same position as the exit doorway
+                    if (!Vector2.Equals(hitFloor.transform.position, floorList[floorList.Count - 1]))
+                    {
+                        Collider2D hitTop = Physics2D.OverlapBox(new Vector2(x, y + 1), hitSize, 0, wallMask);
+                        Collider2D hitRight = Physics2D.OverlapBox(new Vector2(x + 1, y), hitSize, 0, wallMask);
+                        Collider2D hitBottom = Physics2D.OverlapBox(new Vector2(x, y - 1), hitSize, 0, wallMask);
+                        Collider2D hitLeft = Physics2D.OverlapBox(new Vector2(x - 1, y), hitSize, 0, wallMask);
+                        
+                        RandomItems(hitFloor, hitTop, hitRight, hitBottom, hitLeft);
+                    }
+                }
+            }
+        }
+    }
+
+    void RandomItems(Collider2D hitFloor, Collider2D hitTop, Collider2D hitRight, Collider2D hitBottom, Collider2D hitLeft)
+    {
+        // if there is a wall on any one of our sides,
+        // and there is no walls opposing each other on the top and bottom,
+        // and there is no walls opposing each other on the left and right
+        if ((hitTop || hitRight || hitBottom || hitLeft) && !(hitTop && hitBottom) && !(hitRight && hitLeft))
+        {
+            int roll = Random.Range(0, 100);
+            if (roll <= itemSpawnPercent)
+            {
+                int itemIndex = Random.Range(0, randomItems.Length);
+                GameObject goItem = Instantiate(randomItems[itemIndex], hitFloor.transform.position, Quaternion.identity);
+                goItem.name = randomItems[itemIndex].name;
+                goItem.transform.SetParent(hitFloor.transform);
+            }
+        }
     }
 
     void ExitDoorway()
